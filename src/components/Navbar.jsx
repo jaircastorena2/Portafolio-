@@ -20,6 +20,7 @@ function Navbar() {
         { name: t.nav.home, href: '#hero' },
         { name: t.nav.experience, href: '#experience' },
         { name: t.nav.skills, href: '#skills' },
+        { name: language === 'es' ? 'Proyectos' : 'Projects', href: '#projects' },
         { name: t.nav.certifications, href: '#certifications' },
         { name: t.nav.profile, href: '#about' },
         { name: t.nav.contact, href: '#contact' },

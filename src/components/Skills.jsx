@@ -12,7 +12,7 @@ const mainSkills = [
     { name: "React", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg", level: 45, category: "Frontend" },
     { name: "Tailwind CSS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg", level: 50, category: "Frontend" },
     { name: "Google Cloud", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg", level: 55, category: "Cloud" },
-    { name: "CCNA/Redes", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cisco/cisco-original.svg", level: 70, category: "Networking" },
+    { name: "CCNA/Redes", icon: "/cisco-logo.png", level: 70, category: "Networking" },
     { name: "Git/GitHub", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg", level: 60, category: "Tools" },
     { name: "VS Code", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg", level: 75, category: "Tools" },
     { name: "Agile/PM", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jira/jira-original.svg", level: 45, category: "Methodologies" },
