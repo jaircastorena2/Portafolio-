@@ -1,8 +1,3 @@
-// ============================================
-// COMPONENTE NAVBAR - Navbar.jsx
-// ============================================
-// Navegación sticky con scroll suave, tema e idioma
-
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTheme } from '../context/ThemeContext'

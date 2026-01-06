@@ -3,6 +3,7 @@ import { useLanguage } from './context/LanguageContext'
 import Navbar from './components/Navbar'
 import LoadingScreen from './components/LoadingScreen'
 import Hero from './components/Hero'
+import FloatingLines from './components/FloatingLines'
 
 const Stats = lazy(() => import('./components/Stats'))
 const Experience = lazy(() => import('./components/Experience'))
@@ -35,13 +36,29 @@ const App = memo(function App() {
         <>
             {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
 
+            {/* Animated Background */}
+            <div className="fixed inset-0 z-0 pointer-events-none">
+                <FloatingLines
+                    linesGradient={['#00f5ff', '#bf00ff', '#00f5ff']}
+                    enabledWaves={['top', 'middle', 'bottom']}
+                    lineCount={[8, 12, 6]}
+                    lineDistance={[6, 4, 8]}
+                    bendRadius={5.0}
+                    bendStrength={-0.5}
+                    interactive={false}
+                    parallax={false}
+                    animationSpeed={0.8}
+                    mixBlendMode="screen"
+                />
+            </div>
+
             <Navbar />
 
             <Suspense fallback={null}>
                 <WhatsAppFloat />
             </Suspense>
 
-            <div className="min-h-screen bg-dark-bg">
+            <div className="min-h-screen bg-dark-bg/80 relative z-10">
                 <main className="overflow-x-hidden">
                     <Hero />
 

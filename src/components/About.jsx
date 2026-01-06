@@ -1,8 +1,3 @@
-// ============================================
-// COMPONENTE ABOUT - About.jsx
-// ============================================
-// Sección de perfil profesional con traducciones
-
 import { motion } from 'framer-motion'
 import { useLanguage } from '../context/LanguageContext'
 
