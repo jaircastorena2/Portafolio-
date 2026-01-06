@@ -1,15 +1,24 @@
 // ============================================
 // COMPONENTE PROJECTS - Projects.jsx
 // ============================================
-// Sección de proyectos con diseño premium
+// Sección de proyectos con galería animada
 
-import { motion } from 'framer-motion'
+import { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useLanguage } from '../context/LanguageContext'
+
+// Galería de imágenes del proyecto
+const projectImages = [
+    { src: '/gestion-financiera.png', label: { es: 'Dashboard Principal', en: 'Main Dashboard' } },
+    { src: '/project-login.png', label: { es: 'Inicio de Sesión', en: 'Login' } },
+    { src: '/project-dashboard-lavanda.png', label: { es: 'Tema Lavanda', en: 'Lavender Theme' } },
+    { src: '/project-reportes.png', label: { es: 'Reportes Mensuales', en: 'Monthly Reports' } },
+    { src: '/project-modal.png', label: { es: 'Nuevo Gasto', en: 'New Expense' } }
+]
 
 // Datos del proyecto
 const projectData = {
     title: 'Gestión Financiera',
-    image: '/gestion-financiera.png',
     demoUrl: 'https://gesti-n-financiera-euzp.vercel.app/',
     repoUrl: 'https://github.com/jaircastorena2/Gesti-n-financiera',
     frontend: ['React 18', 'Vite', 'Styled Components', 'Recharts', 'React Router', 'Axios'],
@@ -54,13 +63,42 @@ const itemVariants = {
     visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } }
 }
 
-const badgeVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.3, ease: 'easeOut' } }
+const slideVariants = {
+    enter: (direction) => ({ x: direction > 0 ? 300 : -300, opacity: 0 }),
+    center: { x: 0, opacity: 1, transition: { duration: 0.4, ease: 'easeOut' } },
+    exit: (direction) => ({ x: direction > 0 ? -300 : 300, opacity: 0, transition: { duration: 0.4, ease: 'easeIn' } })
 }
 
 function Projects() {
     const { language } = useLanguage()
+    const [currentIndex, setCurrentIndex] = useState(0)
+    const [direction, setDirection] = useState(1)
+    const [isHovered, setIsHovered] = useState(false)
+
+    // Auto-play del carrusel
+    useEffect(() => {
+        if (isHovered) return
+        const interval = setInterval(() => {
+            setDirection(1)
+            setCurrentIndex((prev) => (prev + 1) % projectImages.length)
+        }, 4000)
+        return () => clearInterval(interval)
+    }, [isHovered])
+
+    const goToSlide = (index) => {
+        setDirection(index > currentIndex ? 1 : -1)
+        setCurrentIndex(index)
+    }
+
+    const nextSlide = () => {
+        setDirection(1)
+        setCurrentIndex((prev) => (prev + 1) % projectImages.length)
+    }
+
+    const prevSlide = () => {
+        setDirection(-1)
+        setCurrentIndex((prev) => (prev - 1 + projectImages.length) % projectImages.length)
+    }
 
     const title = language === 'es' ? 'Proyectos' : 'Projects'
     const subtitle = language === 'es' ? 'Mis trabajos más recientes' : 'My most recent work'
@@ -93,10 +131,15 @@ function Projects() {
                     viewport={{ once: true }}
                     className="glass rounded-2xl overflow-hidden border border-neon-purple/20"
                 >
-                    {/* Image Section */}
-                    <motion.div variants={itemVariants} className="relative">
+                    {/* Gallery Section */}
+                    <motion.div
+                        variants={itemVariants}
+                        className="relative"
+                        onMouseEnter={() => setIsHovered(true)}
+                        onMouseLeave={() => setIsHovered(false)}
+                    >
                         {/* Badge */}
-                        <div className="absolute top-4 left-4 z-10">
+                        <div className="absolute top-4 left-4 z-20">
                             <motion.span
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
@@ -106,10 +149,69 @@ function Projects() {
                             </motion.span>
                         </div>
 
-                        <img
-                            src={projectData.image}
-                            alt={projectData.title}
-                            className="w-full h-auto max-h-[500px] object-contain bg-dark-bg"
+                        {/* Navigation Arrows */}
+                        <button
+                            onClick={prevSlide}
+                            className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center bg-dark-bg/80 hover:bg-dark-bg text-white rounded-full transition-all opacity-0 group-hover:opacity-100 hover:scale-110"
+                            style={{ opacity: isHovered ? 1 : 0 }}
+                        >
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                            </svg>
+                        </button>
+                        <button
+                            onClick={nextSlide}
+                            className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center bg-dark-bg/80 hover:bg-dark-bg text-white rounded-full transition-all hover:scale-110"
+                            style={{ opacity: isHovered ? 1 : 0 }}
+                        >
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+
+                        {/* Image Carousel */}
+                        <div className="relative h-[300px] sm:h-[400px] md:h-[450px] overflow-hidden bg-dark-bg">
+                            <AnimatePresence initial={false} custom={direction} mode="wait">
+                                <motion.img
+                                    key={currentIndex}
+                                    src={projectImages[currentIndex].src}
+                                    alt={projectImages[currentIndex].label[language]}
+                                    custom={direction}
+                                    variants={slideVariants}
+                                    initial="enter"
+                                    animate="center"
+                                    exit="exit"
+                                    className="absolute inset-0 w-full h-full object-contain"
+                                />
+                            </AnimatePresence>
+                        </div>
+
+                        {/* Slide Indicators & Label */}
+                        <div className="absolute bottom-4 left-0 right-0 z-20 flex flex-col items-center gap-2">
+                            <span className="px-3 py-1 bg-dark-bg/80 text-white text-sm rounded-full">
+                                {projectImages[currentIndex].label[language]}
+                            </span>
+                            <div className="flex gap-2">
+                                {projectImages.map((_, idx) => (
+                                    <button
+                                        key={idx}
+                                        onClick={() => goToSlide(idx)}
+                                        className={`w-2 h-2 rounded-full transition-all ${idx === currentIndex
+                                                ? 'w-6 bg-neon-cyan'
+                                                : 'bg-white/50 hover:bg-white/80'
+                                            }`}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Progress Bar */}
+                        <motion.div
+                            key={currentIndex}
+                            initial={{ scaleX: 0 }}
+                            animate={{ scaleX: isHovered ? 0 : 1 }}
+                            transition={{ duration: 4, ease: 'linear' }}
+                            className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-neon-cyan to-neon-purple origin-left"
                         />
                     </motion.div>
 
@@ -131,8 +233,8 @@ function Projects() {
                                 {projectData.features[language].map((feature, idx) => (
                                     <motion.span
                                         key={idx}
-                                        variants={badgeVariants}
-                                        className="flex items-center gap-1.5 px-3 py-1.5 text-sm bg-white/5 text-white rounded-full border border-white/10"
+                                        whileHover={{ scale: 1.05, y: -2 }}
+                                        className="flex items-center gap-1.5 px-3 py-1.5 text-sm bg-white/5 text-white rounded-full border border-white/10 cursor-default"
                                     >
                                         <span>{feature.icon}</span>
                                         <span>{feature.text}</span>
@@ -147,14 +249,12 @@ function Projects() {
                                 {techStackTitle}
                             </h4>
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                                {/* Frontend */}
                                 <div className="space-y-2">
                                     <span className="text-xs text-neon-cyan font-medium">Frontend</span>
                                     <div className="flex flex-wrap gap-1.5">
                                         {projectData.frontend.map((tech, idx) => (
                                             <motion.span
                                                 key={idx}
-                                                variants={badgeVariants}
                                                 whileHover={{ scale: 1.05, y: -2 }}
                                                 className="px-2 py-1 text-xs bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30 rounded cursor-default"
                                             >
@@ -163,14 +263,12 @@ function Projects() {
                                         ))}
                                     </div>
                                 </div>
-                                {/* Backend */}
                                 <div className="space-y-2">
                                     <span className="text-xs text-neon-purple font-medium">Backend</span>
                                     <div className="flex flex-wrap gap-1.5">
                                         {projectData.backend.map((tech, idx) => (
                                             <motion.span
                                                 key={idx}
-                                                variants={badgeVariants}
                                                 whileHover={{ scale: 1.05, y: -2 }}
                                                 className="px-2 py-1 text-xs bg-neon-purple/10 text-neon-purple border border-neon-purple/30 rounded cursor-default"
                                             >
@@ -179,14 +277,12 @@ function Projects() {
                                         ))}
                                     </div>
                                 </div>
-                                {/* Database */}
                                 <div className="space-y-2">
                                     <span className="text-xs text-green-400 font-medium">Database</span>
                                     <div className="flex flex-wrap gap-1.5">
                                         {projectData.database.map((tech, idx) => (
                                             <motion.span
                                                 key={idx}
-                                                variants={badgeVariants}
                                                 whileHover={{ scale: 1.05, y: -2 }}
                                                 className="px-2 py-1 text-xs bg-green-400/10 text-green-400 border border-green-400/30 rounded cursor-default"
                                             >
@@ -195,14 +291,12 @@ function Projects() {
                                         ))}
                                     </div>
                                 </div>
-                                {/* Deploy */}
                                 <div className="space-y-2">
                                     <span className="text-xs text-orange-400 font-medium">Deploy</span>
                                     <div className="flex flex-wrap gap-1.5">
                                         {projectData.deployment.map((tech, idx) => (
                                             <motion.span
                                                 key={idx}
-                                                variants={badgeVariants}
                                                 whileHover={{ scale: 1.05, y: -2 }}
                                                 className="px-2 py-1 text-xs bg-orange-400/10 text-orange-400 border border-orange-400/30 rounded cursor-default"
                                             >
