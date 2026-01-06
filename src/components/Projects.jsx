@@ -1,10 +1,9 @@
 // ============================================
 // COMPONENTE PROJECTS - Projects.jsx
 // ============================================
-// Sección de proyectos con diseño premium y videos
+// Sección de proyectos con diseño premium
 
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { useLanguage } from '../context/LanguageContext'
 
 // Datos del proyecto
@@ -13,10 +12,6 @@ const projectData = {
     image: '/gestion-financiera.png',
     demoUrl: 'https://gesti-n-financiera-euzp.vercel.app/',
     repoUrl: 'https://github.com/jaircastorena2/Gesti-n-financiera',
-    videos: [
-        { src: '/demo-login.webp', label: { es: 'Login y Dashboard', en: 'Login & Dashboard' } },
-        { src: '/demo-themes.webp', label: { es: 'Temas y Gastos', en: 'Themes & Expenses' } }
-    ],
     frontend: ['React 18', 'Vite', 'Styled Components', 'Recharts', 'React Router', 'Axios'],
     backend: ['Node.js', 'Express', 'JWT', 'bcryptjs'],
     database: ['MySQL'],
@@ -66,16 +61,12 @@ const badgeVariants = {
 
 function Projects() {
     const { language } = useLanguage()
-    const [activeMedia, setActiveMedia] = useState('image')
-    const [activeVideo, setActiveVideo] = useState(0)
 
     const title = language === 'es' ? 'Proyectos' : 'Projects'
     const subtitle = language === 'es' ? 'Mis trabajos más recientes' : 'My most recent work'
     const viewDemo = language === 'es' ? 'Ver Demo' : 'View Demo'
     const viewCode = language === 'es' ? 'Ver Código' : 'View Code'
     const techStackTitle = language === 'es' ? 'Stack Tecnológico' : 'Tech Stack'
-    const watchDemo = language === 'es' ? 'Ver Videos' : 'Watch Demos'
-    const viewImage = language === 'es' ? 'Ver Imagen' : 'View Image'
 
     return (
         <section id="projects" className="py-20 px-4 sm:px-6">
@@ -102,34 +93,8 @@ function Projects() {
                     viewport={{ once: true }}
                     className="glass rounded-2xl overflow-hidden border border-neon-purple/20"
                 >
-                    {/* Media Section - Full Width */}
+                    {/* Image Section */}
                     <motion.div variants={itemVariants} className="relative">
-                        {/* Media Toggle */}
-                        <div className="absolute top-4 right-4 z-10 flex gap-2">
-                            <motion.button
-                                onClick={() => setActiveMedia('image')}
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                                className={`px-3 py-1.5 text-xs font-medium rounded-full transition-all ${activeMedia === 'image'
-                                        ? 'bg-neon-cyan text-dark-bg'
-                                        : 'bg-dark-bg/80 text-white hover:bg-dark-bg'
-                                    }`}
-                            >
-                                📷 {viewImage}
-                            </motion.button>
-                            <motion.button
-                                onClick={() => setActiveMedia('video')}
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                                className={`px-3 py-1.5 text-xs font-medium rounded-full transition-all ${activeMedia === 'video'
-                                        ? 'bg-neon-purple text-white'
-                                        : 'bg-dark-bg/80 text-white hover:bg-dark-bg'
-                                    }`}
-                            >
-                                🎬 {watchDemo}
-                            </motion.button>
-                        </div>
-
                         {/* Badge */}
                         <div className="absolute top-4 left-4 z-10">
                             <motion.span
@@ -141,57 +106,11 @@ function Projects() {
                             </motion.span>
                         </div>
 
-                        {/* Media Content */}
-                        <AnimatePresence mode="wait">
-                            {activeMedia === 'image' ? (
-                                <motion.div
-                                    key="image"
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    transition={{ duration: 0.3 }}
-                                    className="w-full"
-                                >
-                                    <img
-                                        src={projectData.image}
-                                        alt={projectData.title}
-                                        className="w-full h-auto max-h-[500px] object-contain bg-dark-bg"
-                                    />
-                                </motion.div>
-                            ) : (
-                                <motion.div
-                                    key="video"
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    transition={{ duration: 0.3 }}
-                                    className="w-full"
-                                >
-                                    {/* Video Selector */}
-                                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex gap-2">
-                                        {projectData.videos.map((video, idx) => (
-                                            <motion.button
-                                                key={idx}
-                                                onClick={() => setActiveVideo(idx)}
-                                                whileHover={{ scale: 1.05 }}
-                                                whileTap={{ scale: 0.95 }}
-                                                className={`px-3 py-1.5 text-xs font-medium rounded-full transition-all ${activeVideo === idx
-                                                        ? 'bg-white text-dark-bg'
-                                                        : 'bg-dark-bg/80 text-white hover:bg-dark-bg'
-                                                    }`}
-                                            >
-                                                {video.label[language]}
-                                            </motion.button>
-                                        ))}
-                                    </div>
-                                    <img
-                                        src={projectData.videos[activeVideo].src}
-                                        alt={projectData.videos[activeVideo].label[language]}
-                                        className="w-full h-auto max-h-[500px] object-contain bg-dark-bg"
-                                    />
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
+                        <img
+                            src={projectData.image}
+                            alt={projectData.title}
+                            className="w-full h-auto max-h-[500px] object-contain bg-dark-bg"
+                        />
                     </motion.div>
 
                     {/* Content Section */}
