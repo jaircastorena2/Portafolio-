@@ -13,7 +13,11 @@ const projectImages = [
     { src: '/project-login.png', label: { es: 'Inicio de Sesión', en: 'Login' } },
     { src: '/project-dashboard-lavanda.png', label: { es: 'Tema Lavanda', en: 'Lavender Theme' } },
     { src: '/project-reportes.png', label: { es: 'Reportes Mensuales', en: 'Monthly Reports' } },
-    { src: '/project-modal.png', label: { es: 'Nuevo Gasto', en: 'New Expense' } }
+    { src: '/project-metas.png', label: { es: 'Metas de Ahorro', en: 'Savings Goals' } },
+    { src: '/project-ajustes.png', label: { es: 'Ajustes y Temas', en: 'Settings & Themes' } },
+    { src: '/project-monedas.png', label: { es: 'Multi-Moneda', en: 'Multi-Currency' } },
+    { src: '/project-modal.png', label: { es: 'Nuevo Gasto', en: 'New Expense' } },
+    { src: '/project-nueva-meta.png', label: { es: 'Crear Meta', en: 'Create Goal' } }
 ]
 
 // Datos del proyecto
@@ -197,8 +201,8 @@ function Projects() {
                                         key={idx}
                                         onClick={() => goToSlide(idx)}
                                         className={`w-2 h-2 rounded-full transition-all ${idx === currentIndex
-                                                ? 'w-6 bg-neon-cyan'
-                                                : 'bg-white/50 hover:bg-white/80'
+                                            ? 'w-6 bg-neon-cyan'
+                                            : 'bg-white/50 hover:bg-white/80'
                                             }`}
                                     />
                                 ))}
