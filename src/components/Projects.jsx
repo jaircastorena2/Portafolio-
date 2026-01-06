@@ -12,6 +12,7 @@ const projectImages = [
     { src: '/gestion-financiera.png', label: { es: 'Dashboard Principal', en: 'Main Dashboard' } },
     { src: '/project-login.png', label: { es: 'Inicio de Sesión', en: 'Login' } },
     { src: '/project-dashboard-lavanda.png', label: { es: 'Tema Lavanda', en: 'Lavender Theme' } },
+    { src: '/project-atardecer.png', label: { es: 'Tema Atardecer', en: 'Sunset Theme' } },
     { src: '/project-reportes.png', label: { es: 'Reportes Mensuales', en: 'Monthly Reports' } },
     { src: '/project-metas.png', label: { es: 'Metas de Ahorro', en: 'Savings Goals' } },
     { src: '/project-ajustes.png', label: { es: 'Ajustes y Temas', en: 'Settings & Themes' } },
