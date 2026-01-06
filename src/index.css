@@ -1,83 +1,37 @@
-/* ============================================
-   ESTILOS GLOBALES - index.css
-   ============================================
-   Este archivo contiene:
-   1. Directivas de Tailwind (base, components, utilities)
-   2. Estilos globales personalizados
-   3. Clases de utilidad para efectos especiales
-*/
-
-/* --------------------------------------------
-   DIRECTIVAS DE TAILWIND
-   --------------------------------------------
-   Estas 3 líneas son OBLIGATORIAS para que Tailwind funcione.
-   - @tailwind base: Reset de estilos y variables CSS
-   - @tailwind components: Clases de componentes (si las defines)
-   - @tailwind utilities: Todas las clases de utilidad (bg-, text-, p-, etc.)
-*/
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* --------------------------------------------
-   ESTILOS BASE DEL BODY
-   --------------------------------------------
-   Aplicamos el fondo oscuro y la fuente a todo el documento
-*/
 body {
-    /* Fondo muy oscuro */
     background-color: #030014;
-    /* Grid de fondo tech-style */
     background-image:
         linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px),
         linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px);
     background-size: 50px 50px;
     background-attachment: fixed;
-    /* Fuente Inter para todo el texto */
     font-family: 'Inter', system-ui, sans-serif;
-    /* Color de texto por defecto */
     color: #ffffff;
-    /* Asegura que siempre haya scroll suave */
     scroll-behavior: smooth;
-    /* Altura mínima del viewport */
     min-height: 100vh;
-    /* Sin márgenes */
     margin: 0;
     padding: 0;
 }
 
-/* Contorno brillante alrededor del viewport - solo borde */
 body::before {
     content: '';
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     pointer-events: none;
     z-index: 9999;
     border: 2px solid;
     border-image: linear-gradient(135deg, rgba(0, 245, 255, 0.4), rgba(191, 0, 255, 0.2), rgba(0, 245, 255, 0.4)) 1;
-    box-shadow:
-        inset 0 0 80px rgba(0, 245, 255, 0.03),
-        inset 0 0 150px rgba(191, 0, 255, 0.02);
+    box-shadow: inset 0 0 80px rgba(0, 245, 255, 0.03), inset 0 0 150px rgba(191, 0, 255, 0.02);
 }
 
-/* Quitar outline de focus para elementos interactivos */
 *:focus {
     outline: none;
 }
 
-button:focus,
-a:focus {
-    outline: none;
-}
-
-/* --------------------------------------------
-   SCROLLBAR PERSONALIZADO (solo Chrome/Edge/Safari)
-   --------------------------------------------
-   Le damos un estilo más acorde al tema cyberpunk
-*/
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -95,11 +49,6 @@ a:focus {
     background: linear-gradient(180deg, #00d4dd 0%, #a000dd 100%);
 }
 
-/* --------------------------------------------
-   CLASES DE UTILIDAD PERSONALIZADAS
-   -------------------------------------------- */
-
-/* Animación de gradiente para texto */
 @keyframes gradient {
 
     0%,
@@ -116,34 +65,24 @@ a:focus {
     animation: gradient 3s ease infinite;
 }
 
-/* Usamos @layer utilities para definir clases reutilizables que se pueden combinar con otras clases de Tailwind */
 @layer utilities {
-
-    /* Hide scrollbar for horizontal scroll containers */
     .scrollbar-hide {
         -ms-overflow-style: none;
         scrollbar-width: none;
     }
+
     .scrollbar-hide::-webkit-scrollbar {
         display: none;
     }
 
-    /* Efecto de brillo neón para textos */
     .text-glow-cyan {
-        text-shadow:
-            0 0 10px rgba(0, 245, 255, 0.5),
-            0 0 20px rgba(0, 245, 255, 0.3),
-            0 0 30px rgba(0, 245, 255, 0.2);
+        text-shadow: 0 0 10px rgba(0, 245, 255, 0.5), 0 0 20px rgba(0, 245, 255, 0.3), 0 0 30px rgba(0, 245, 255, 0.2);
     }
 
     .text-glow-purple {
-        text-shadow:
-            0 0 10px rgba(191, 0, 255, 0.5),
-            0 0 20px rgba(191, 0, 255, 0.3),
-            0 0 30px rgba(191, 0, 255, 0.2);
+        text-shadow: 0 0 10px rgba(191, 0, 255, 0.5), 0 0 20px rgba(191, 0, 255, 0.3), 0 0 30px rgba(191, 0, 255, 0.2);
     }
 
-    /* Animación de gradiente para efecto rainbow en el nombre */
     .animate-gradient-x {
         animation: gradient-x 3s ease infinite;
     }
@@ -160,22 +99,16 @@ a:focus {
         }
     }
 
-    /* Efecto de brillo neón al hacer hover sobre el nombre */
     .name-rainbow-hover {
         transition: all 0.3s ease;
     }
 
     .name-rainbow-hover:hover {
-        /* Brillo más sutil para no ocultar el texto */
-        text-shadow:
-            0 0 8px rgba(0, 245, 255, 0.4),
-            0 0 15px rgba(0, 245, 255, 0.2),
-            0 0 25px rgba(191, 0, 255, 0.15);
+        text-shadow: 0 0 8px rgba(0, 245, 255, 0.4), 0 0 15px rgba(0, 245, 255, 0.2), 0 0 25px rgba(191, 0, 255, 0.15);
         filter: brightness(1.1);
     }
 }
 
-/* Efecto glassmorphism para tarjetas */
 .glass {
     background: rgba(18, 18, 26, 0.7);
     backdrop-filter: blur(10px);
@@ -189,19 +122,13 @@ a:focus {
     cursor: pointer;
 }
 
-/* Hover con escala, glow intenso e iluminación */
 .glass-hover:hover {
     background: rgba(0, 245, 255, 0.08);
     border-color: #00f5ff;
-    box-shadow:
-        0 0 0 2px rgba(0, 245, 255, 0.4),
-        0 0 40px rgba(0, 245, 255, 0.25),
-        0 0 80px rgba(0, 245, 255, 0.1),
-        0 20px 40px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 0 2px rgba(0, 245, 255, 0.4), 0 0 40px rgba(0, 245, 255, 0.25), 0 0 80px rgba(0, 245, 255, 0.1), 0 20px 40px rgba(0, 0, 0, 0.4);
     transform: translateY(-8px) scale(1.02);
 }
 
-/* Borde con gradiente neón */
 .border-gradient {
     position: relative;
     background: #12121a;
@@ -215,17 +142,12 @@ a:focus {
     border-radius: 13px;
     padding: 1px;
     background: linear-gradient(135deg, #00f5ff 0%, #bf00ff 50%, #00f5ff 100%);
-    -webkit-mask:
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
-    mask:
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
 }
 
-/* Animación de pulso para elementos destacados */
 .pulse-glow {
     animation: pulseGlow 2s ease-in-out infinite;
 }
@@ -242,7 +164,6 @@ a:focus {
     }
 }
 
-/* Botón con gradiente animado */
 .btn-gradient-animated {
     position: relative;
     background: linear-gradient(135deg, #00f5ff, #bf00ff, #00f5ff);
@@ -270,7 +191,6 @@ a:focus {
     }
 }
 
-/* Títulos con glow pulsante */
 .title-glow {
     animation: titlePulse 3s ease-in-out infinite;
 }
@@ -279,20 +199,14 @@ a:focus {
 
     0%,
     100% {
-        text-shadow:
-            0 0 10px rgba(0, 245, 255, 0.3),
-            0 0 20px rgba(0, 245, 255, 0.1);
+        text-shadow: 0 0 10px rgba(0, 245, 255, 0.3), 0 0 20px rgba(0, 245, 255, 0.1);
     }
 
     50% {
-        text-shadow:
-            0 0 20px rgba(0, 245, 255, 0.5),
-            0 0 40px rgba(0, 245, 255, 0.2),
-            0 0 60px rgba(191, 0, 255, 0.1);
+        text-shadow: 0 0 20px rgba(0, 245, 255, 0.5), 0 0 40px rgba(0, 245, 255, 0.2), 0 0 60px rgba(191, 0, 255, 0.1);
     }
 }
 
-/* Efecto float suave */
 .float-animation {
     animation: floatUpDown 3s ease-in-out infinite;
 }
@@ -309,7 +223,6 @@ a:focus {
     }
 }
 
-/* Animación de entrada fade-slide */
 .fade-slide-up {
     animation: fadeSlideUp 0.6s ease-out forwards;
 }
@@ -326,7 +239,6 @@ a:focus {
     }
 }
 
-/* Badge premium con brillo */
 .badge-premium {
     position: relative;
     overflow: hidden;
@@ -339,10 +251,7 @@ a:focus {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: linear-gradient(45deg,
-            transparent 30%,
-            rgba(255, 255, 255, 0.1) 50%,
-            transparent 70%);
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
     animation: shimmer 2s infinite;
 }
 
@@ -356,21 +265,12 @@ a:focus {
     }
 }
 
-/* --------------------------------------------
-   SELECCIÓN DE TEXTO
-   --------------------------------------------
-*/
 ::selection {
     background-color: rgba(0, 245, 255, 0.3);
     color: #ffffff;
 }
 
-/* --------------------------------------------
-   TEMA CLARO (LIGHT THEME) - Profesional y Elegante
-   --------------------------------------------
-*/
-
-/* Base del tema claro - Fondo lavanda claro elegante */
+/* Light Theme */
 .light-theme,
 .light-theme body {
     background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 50%, #f0f9ff 100%) !important;
@@ -382,19 +282,14 @@ a:focus {
     background: transparent !important;
 }
 
-/* Grid de fondo más sutil en tema claro */
 .light-theme body {
-    background-image:
-        linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px) !important;
+    background-image: linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px) !important;
 }
 
-/* Contorno brillante tema claro */
 .light-theme body::before {
     border-image: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(168, 85, 247, 0.2), rgba(99, 102, 241, 0.3)) 1 !important;
 }
 
-/* Cards y Glass - Efecto glassmorphism claro */
 .light-theme .bg-dark-card,
 .light-theme .dark-card {
     background-color: rgba(255, 255, 255, 0.9) !important;
@@ -412,15 +307,9 @@ a:focus {
 .light-theme .glass-hover:hover {
     background: rgba(99, 102, 241, 0.08) !important;
     border-color: #6366f1 !important;
-    box-shadow:
-        0 0 0 2px rgba(99, 102, 241, 0.4),
-        0 0 40px rgba(99, 102, 241, 0.2),
-        0 0 80px rgba(99, 102, 241, 0.08),
-        0 20px 40px rgba(99, 102, 241, 0.15) !important;
-    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.4), 0 0 40px rgba(99, 102, 241, 0.2), 0 0 80px rgba(99, 102, 241, 0.08), 0 20px 40px rgba(99, 102, 241, 0.15) !important;
 }
 
-/* Textos - Más vibrantes */
 .light-theme .text-white {
     color: #1e1b4b !important;
 }
@@ -442,7 +331,6 @@ a:focus {
     color: #059669 !important;
 }
 
-/* Bordes - Tonos púrpura */
 .light-theme .border-dark-border {
     border-color: rgba(99, 102, 241, 0.15) !important;
 }
@@ -457,7 +345,6 @@ a:focus {
     border-color: rgba(5, 150, 105, 0.4) !important;
 }
 
-/* Navbar glassmorphism claro */
 .light-theme nav {
     background: rgba(255, 255, 255, 0.8) !important;
     backdrop-filter: blur(20px) !important;
@@ -468,7 +355,6 @@ a:focus {
     border-bottom: 1px solid rgba(99, 102, 241, 0.1) !important;
 }
 
-/* Botones y badges */
 .light-theme .bg-neon-cyan\/10 {
     background-color: rgba(3, 105, 161, 0.12) !important;
 }
@@ -486,30 +372,21 @@ a:focus {
     background-color: #f1f5f9 !important;
 }
 
-/* Fondos especiales */
 .light-theme .bg-neon-cyan\/5,
 .light-theme .bg-neon-purple\/5 {
     background-color: rgba(3, 105, 161, 0.06) !important;
 }
 
-/* Progress bars */
-.light-theme .bg-dark-bg\/50 {
-    background-color: #e2e8f0 !important;
-}
-
-/* Gradientes de fondo decorativo - invisibles en tema claro */
 .light-theme .bg-neon-cyan\/10,
 .light-theme .bg-neon-purple\/10 {
     opacity: 0.3 !important;
 }
 
-/* Cards con rounded */
 .light-theme [class*="rounded-xl"],
 .light-theme [class*="rounded-2xl"] {
     box-shadow: 0 2px 15px rgba(0, 0, 0, 0.06);
 }
 
-/* Input y textareas */
 .light-theme input,
 .light-theme textarea {
     background-color: #ffffff !important;
@@ -522,7 +399,6 @@ a:focus {
     color: #64748b !important;
 }
 
-/* Scrollbar */
 .light-theme ::-webkit-scrollbar-track {
     background: #f1f5f9;
 }
@@ -531,57 +407,47 @@ a:focus {
     background: linear-gradient(180deg, #0369a1 0%, #6d28d9 100%);
 }
 
-/* Selection */
 .light-theme ::selection {
     background-color: rgba(3, 105, 161, 0.25);
     color: #0f172a;
 }
 
-/* Footer */
 .light-theme footer {
     background-color: #f1f5f9 !important;
     border-color: #e2e8f0 !important;
 }
 
-/* About section badge - específico */
 .light-theme .bg-dark-bg\/50.rounded-full {
     background-color: #f1f5f9 !important;
     border: 1px solid #e2e8f0 !important;
 }
 
-/* Loading screen */
 .light-theme .bg-dark-bg.fixed {
     background-color: #f8fafc !important;
 }
 
-/* Botones principales gradient */
 .light-theme .bg-gradient-to-r.from-neon-cyan.to-neon-purple {
     background: linear-gradient(to right, #0369a1, #6d28d9) !important;
 }
 
-/* Líneas de timeline */
 .light-theme .bg-gradient-to-b.from-neon-cyan {
     background: linear-gradient(to bottom, #0369a1, #6d28d9, transparent) !important;
 }
 
-/* Detalles de categorías */
 .light-theme .font-mono.text-neon-cyan {
     color: #0369a1 !important;
 }
 
-/* WhatsApp float */
 .light-theme .bg-\[\#25D366\] {
     box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4) !important;
 }
 
-/* Stats cards */
 .light-theme .from-neon-cyan\/5,
 .light-theme .to-neon-purple\/5 {
     --tw-gradient-from: rgba(3, 105, 161, 0.08) !important;
     --tw-gradient-to: rgba(109, 40, 217, 0.08) !important;
 }
 
-/* Hover states en tema claro */
 .light-theme .group:hover .group-hover\:text-neon-cyan {
     color: #0369a1 !important;
 }
@@ -594,7 +460,6 @@ a:focus {
     border-color: rgba(3, 105, 161, 0.4) !important;
 }
 
-/* NOMBRE - Gradiente visible en tema claro */
 .light-theme .bg-gradient-to-r.from-neon-cyan.via-white.to-neon-purple {
     background: linear-gradient(to right, #0369a1, #0f172a, #6d28d9) !important;
     -webkit-background-clip: text !important;
@@ -609,7 +474,6 @@ a:focus {
     color: transparent !important;
 }
 
-/* Stats - Números visibles */
 .light-theme .from-neon-cyan.to-neon-purple.bg-clip-text {
     background: linear-gradient(to right, #0369a1, #6d28d9) !important;
     -webkit-background-clip: text !important;
