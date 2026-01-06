@@ -119,6 +119,15 @@ a:focus {
 /* Usamos @layer utilities para definir clases reutilizables que se pueden combinar con otras clases de Tailwind */
 @layer utilities {
 
+    /* Hide scrollbar for horizontal scroll containers */
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+
     /* Efecto de brillo neón para textos */
     .text-glow-cyan {
         text-shadow:
