@@ -1,5 +1,6 @@
 import { useState, useEffect, lazy, Suspense, memo } from 'react'
 import { useLanguage } from './context/LanguageContext'
+import { useTheme } from './context/ThemeContext'
 import Navbar from './components/Navbar'
 import LoadingScreen from './components/LoadingScreen'
 import Hero from './components/Hero'
@@ -24,6 +25,7 @@ const SectionFallback = () => (
 const App = memo(function App() {
     const [loading, setLoading] = useState(true)
     const { t } = useLanguage()
+    const { theme } = useTheme()
 
     useEffect(() => {
         if ('scrollRestoration' in history) {
@@ -36,21 +38,23 @@ const App = memo(function App() {
         <>
             {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
 
-            {/* Animated Background */}
-            <div className="fixed inset-0 z-0 pointer-events-none">
-                <FloatingLines
-                    linesGradient={['#00f5ff', '#bf00ff', '#00f5ff']}
-                    enabledWaves={['top', 'middle', 'bottom']}
-                    lineCount={[8, 12, 6]}
-                    lineDistance={[6, 4, 8]}
-                    bendRadius={5.0}
-                    bendStrength={-0.5}
-                    interactive={false}
-                    parallax={false}
-                    animationSpeed={0.8}
-                    mixBlendMode="screen"
-                />
-            </div>
+            {/* Animated Background - solo en tema oscuro */}
+            {theme === 'dark' && (
+                <div className="fixed inset-0 z-0 pointer-events-none">
+                    <FloatingLines
+                        linesGradient={['#00f5ff', '#bf00ff', '#00f5ff']}
+                        enabledWaves={['top', 'middle', 'bottom']}
+                        lineCount={[8, 12, 6]}
+                        lineDistance={[6, 4, 8]}
+                        bendRadius={5.0}
+                        bendStrength={-0.5}
+                        interactive={false}
+                        parallax={false}
+                        animationSpeed={0.8}
+                        mixBlendMode="screen"
+                    />
+                </div>
+            )}
 
             <Navbar />
 
@@ -58,7 +62,7 @@ const App = memo(function App() {
                 <WhatsAppFloat />
             </Suspense>
 
-            <div className="min-h-screen bg-dark-bg/80 relative z-10">
+            <div className="min-h-screen relative z-10">
                 <main className="overflow-x-hidden">
                     <Hero />
 
