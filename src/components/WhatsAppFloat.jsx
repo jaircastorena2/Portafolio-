@@ -1,8 +1,3 @@
-// ============================================
-// COMPONENTE WHATSAPP FLOTANTE - WhatsAppFloat.jsx
-// ============================================
-// Botón flotante de WhatsApp siempre visible
-
 import { motion } from 'framer-motion'
 
 function WhatsAppFloat() {

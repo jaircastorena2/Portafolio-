@@ -1,8 +1,3 @@
-// ============================================
-// COMPONENTE CONTACT - Contact.jsx
-// ============================================
-// Sección de contacto con formulario y botones de redes
-
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useLanguage } from '../context/LanguageContext'

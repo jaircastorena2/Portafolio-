@@ -1,8 +1,3 @@
-// ============================================
-// COMPONENTE EXPERIENCE - Experience.jsx
-// ============================================
-// Experiencia laboral con traducciones completas ES/EN
-
 import { motion } from 'framer-motion'
 import { useLanguage } from '../context/LanguageContext'
 

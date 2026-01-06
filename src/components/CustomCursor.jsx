@@ -1,8 +1,3 @@
-// ============================================
-// COMPONENTE CURSOR PERSONALIZADO - CustomCursor.jsx
-// ============================================
-// Cursor con efecto glow que sigue al mouse
-
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 

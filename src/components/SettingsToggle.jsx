@@ -1,8 +1,3 @@
-// ============================================
-// COMPONENTE SETTINGS TOGGLE - SettingsToggle.jsx
-// ============================================
-// Botones para cambiar tema e idioma
-
 import { motion } from 'framer-motion'
 import { useTheme } from '../context/ThemeContext'
 import { useLanguage } from '../context/LanguageContext'

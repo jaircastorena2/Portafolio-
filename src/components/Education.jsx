@@ -1,8 +1,3 @@
-// ============================================
-// COMPONENTE EDUCATION - Education.jsx
-// ============================================
-// Formación académica y habilidades técnicas con traducciones ES/EN
-
 import { motion } from 'framer-motion'
 import { useLanguage } from '../context/LanguageContext'
 

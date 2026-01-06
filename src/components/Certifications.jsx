@@ -1,8 +1,3 @@
-// ============================================
-// COMPONENTE CERTIFICATIONS - Certifications.jsx
-// ============================================
-// Certificaciones con traducciones completas ES/EN
-
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
 import { useLanguage } from '../context/LanguageContext'
