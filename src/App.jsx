@@ -5,6 +5,7 @@ import Navbar from './components/Navbar'
 import LoadingScreen from './components/LoadingScreen'
 import Hero from './components/Hero'
 import FloatingLines from './components/FloatingLines'
+import Iridescence from './components/Iridescence'
 
 const Stats = lazy(() => import('./components/Stats'))
 const Experience = lazy(() => import('./components/Experience'))
@@ -38,8 +39,8 @@ const App = memo(function App() {
         <>
             {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
 
-            {/* Animated Background - solo en tema oscuro */}
-            {theme === 'dark' && (
+            {/* Animated Background - FloatingLines for dark, Iridescence for light */}
+            {theme === 'dark' ? (
                 <div className="fixed inset-0 z-0 pointer-events-none">
                     <FloatingLines
                         linesGradient={['#00f5ff', '#bf00ff', '#00f5ff']}
@@ -52,6 +53,15 @@ const App = memo(function App() {
                         parallax={false}
                         animationSpeed={0.8}
                         mixBlendMode="screen"
+                    />
+                </div>
+            ) : (
+                <div className="fixed inset-0 z-0 pointer-events-none">
+                    <Iridescence
+                        color={[0.9, 0.9, 1]}
+                        speed={0.8}
+                        amplitude={0.1}
+                        mouseReact={false}
                     />
                 </div>
             )}
